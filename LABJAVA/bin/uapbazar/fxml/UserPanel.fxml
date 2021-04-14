@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-min-height: 600; -fx-min-width: 1000;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uapbazar.UserPanelController">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="420.0" minWidth="0.0" prefWidth="0.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="773.0" minWidth="10.0" prefWidth="765.0" />
+    <ColumnConstraints fillWidth="false" hgrow="SOMETIMES" maxWidth="580.0" minWidth="100.0" prefWidth="488.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="121.0" minHeight="0.0" prefHeight="57.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="352.0" minHeight="10.0" prefHeight="300.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="75.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <TabPane fx:id="tabPane" prefHeight="352.0" prefWidth="738.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <tabs>
+          <Tab style="-fx-background-radius: 5; -fx-background-color: #59d37c;" text="Browse">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="all" layoutY="-2.0" prefHeight="325.0" prefWidth="755.0" />
+                     </children></AnchorPane>
+            </content>
+          </Tab>
+            <Tab style="-fx-background-radius: 5; -fx-background-color: #59d37c;" text="Food">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="foodList" prefHeight="325.0" prefWidth="765.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab style="-fx-background-radius: 5; -fx-background-color: #59d37c;" text="Clothes">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="clothList" prefHeight="325.0" prefWidth="765.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab style="-fx-background-radius: 5; -fx-background-color: #59d37c;" text="Electronics">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ListView fx:id="electronicsList" prefHeight="325.0" prefWidth="765.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+      <AnchorPane prefHeight="75.0" prefWidth="492.0" style="-fx-background-color: #78e57d;" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <children>
+            <Button fx:id="removeItem" layoutX="356.0" layoutY="3.0" mnemonicParsing="false" onAction="#removeItemClicked" prefHeight="39.0" prefWidth="125.0" style="-fx-background-color: #e73c37;" text="Remove Item" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Bold" size="15.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+            <Button fx:id="clearCart" layoutX="14.0" layoutY="3.0" mnemonicParsing="false" onAction="#clearCartClicked" prefHeight="39.0" prefWidth="131.0" style="-fx-background-color: #e73c37;" text="Clear Cart" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Bold" size="12.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+         </children>
+      </AnchorPane>
+      <Label prefHeight="21.0" prefWidth="227.0" text="Total Bill:" textFill="WHITE" GridPane.columnIndex="2">
+         <font>
+            <Font name="SansSerif Bold" size="18.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Label>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="121.0" prefWidth="765.0" style="-fx-background-color: #7933ff;" GridPane.columnIndex="1">
+         <children>
+            <Label layoutX="205.0" layoutY="20.0" prefHeight="82.0" prefWidth="316.0" style="-fx-background-color: #03ef62; -fx-background-radius: 100;" text="           UAP BAZAR" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="28.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.17105263471603394" green="0.12670564651489258" blue="0.12670564651489258" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="71.0" prefWidth="488.0" style="-fx-background-color: #389062;" GridPane.columnIndex="2">
+         <children>
+            <Label layoutX="144.0" layoutY="-1.0" prefHeight="39.0" prefWidth="153.0" style="-fx-background-color: #e9f995;" text="         Cart">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Label>
+            <Label layoutX="14.0" layoutY="53.0" prefHeight="39.0" prefWidth="118.0" text="Total Bill:" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.22277046740055084" green="0.42830774188041687" blue="0.9078947305679321" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Label>
+            <Button fx:id="payBill" layoutX="356.0" layoutY="44.0" mnemonicParsing="false" onAction="#payBillClicked" prefHeight="48.0" prefWidth="118.0" style="-fx-background-color: black; -fx-background-radius: 30;" text="Pay Bill" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Bold" size="17.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <Label fx:id="totalBill" layoutX="126.0" layoutY="53.0" prefHeight="39.0" prefWidth="190.0" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.22277046740055084" green="0.42830774188041687" blue="0.9078947305679321" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #9b59b6;" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <children>
+            <Button fx:id="addItem" layoutX="637.0" layoutY="4.0" mnemonicParsing="false" onAction="#addItemClicked" prefHeight="48.0" prefWidth="111.0" style="-fx-background-color: #079992; -fx-background-radius: 20;" text="Add Item" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Bold" size="17.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.1315789520740509" green="0.10599415004253387" blue="0.10599415004253387" />
+                     </color></DropShadow>
+               </effect>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
+            <Button fx:id="back" layoutX="7.0" layoutY="5.0" mnemonicParsing="false" onAction="#backClicked" prefHeight="48.0" prefWidth="147.0" style="-fx-background-color: #319586;" text="Back to login page" textFill="WHITE">
+               <effect>
+                  <DropShadow />
+               </effect>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <Spinner fx:id="spinner" layoutX="476.0" layoutY="17.0" />
+         </children>
+      </AnchorPane>
+      <ListView fx:id="cartList" prefHeight="352.0" prefWidth="460.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+   </children>
+</GridPane>
