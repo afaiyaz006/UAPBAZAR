@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -20,6 +21,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -58,6 +60,16 @@ public class AdminPanelController {
 	@FXML
 	public ListView<Product> clothesList;
 	public  ObservableList<Product> cList=FXCollections.observableList(StoreDataLoader.store.viewProducts(uapbazar.product.Category.Cloth));
+	
+	public static void showDialog(String msg) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Invalid  Data");
+		alert.setHeaderText("Warrning");
+		alert.setContentText(msg);
+
+		alert.showAndWait();
+	}
+	
 	public static int getDays() {
 		TextInputDialog dialog = new TextInputDialog("0");
 		dialog.setTitle("Give Sale");
@@ -108,54 +120,94 @@ public class AdminPanelController {
 	}
 	public void giveSaleClicked() {
 		Product anyProduct=listView.getSelectionModel().getSelectedItem();
-	
+		if(anyProduct==null) {
+			showDialog("Nothing sleected.\n");
+		}
 		Product electronicsProduct=electronicsList.getSelectionModel().getSelectedItem();
 		Product clothProduct=clothesList.getSelectionModel().getSelectedItem();
 		int tabNumber=tabPane.getSelectionModel().getSelectedIndex();
-		if(tabNumber==0) {
+		if(tabNumber==0 && anyProduct!=null) {
 			if(anyProduct.getCategory().equals(uapbazar.product.Category.Cloth)) {
 				int percentage=saleDialogBox();
 				String id=anyProduct.getId();
-				StoreDataLoader.store.putOnSaleCloth(id, percentage);
-				StoreDataLoader.writeObject();
+				if(percentage<=100) {
+					StoreDataLoader.store.putOnSaleCloth(id, percentage);
+					StoreDataLoader.writeObject();
+				}
+				else {
+					showDialog("Invalid data entered.\n");
+				}
 			}
 			else if(anyProduct.getCategory().equals(uapbazar.product.Category.Electronics)) {
 				int percentage=saleDialogBox();
 				String id=anyProduct.getId();
-				StoreDataLoader.store.putOnSaleElectronic(id, percentage);
-				StoreDataLoader.writeObject();
+				if(percentage<=100) {
+					StoreDataLoader.store.putOnSaleElectronic(id, percentage);
+					StoreDataLoader.writeObject();
+				}
+				else {
+					showDialog("Invalid data entered.\n");
+				}
+			}
+			else if(anyProduct.getCategory().equals(uapbazar.product.Category.Food)){
+				int percentage=saleDialogBox();
+				Integer days=getDays();
+				if(percentage<=100 || days>1) {
+					StoreDataLoader.store.putOnSaleFood(days, percentage);
+					StoreDataLoader.writeObject();
+				}
+				else {
+					showDialog("Invalid data entered.\n");
+				}
 			}
 			
 			
 			
+			
 		}
-		else if(tabNumber==1) {
+		else if(tabNumber==1 && anyProduct!=null) {
 			int percentage=saleDialogBox();
 			Integer days=getDays();
-			StoreDataLoader.store.putOnSaleFood(days, percentage);
-			StoreDataLoader.writeObject();
+			if(percentage<=100 || days>1) {
+				StoreDataLoader.store.putOnSaleFood(days, percentage);
+				StoreDataLoader.writeObject();
+			}
+			else {
+				showDialog("Invalid data entered.\n");
+			}
 			
 		}
-		else if(tabNumber==2) {
+		else if(tabNumber==2 && anyProduct!=null) {
 			int percentage=saleDialogBox();
 			String id=clothProduct.getId();
-			StoreDataLoader.store.putOnSaleElectronic(id, percentage);
-			StoreDataLoader.writeObject();
+			if(percentage<=100) {
+				StoreDataLoader.store.putOnSaleElectronic(id, percentage);
+				StoreDataLoader.writeObject();
+			}
+			else {
+				showDialog("Invalid data entered.\n");
+			}
 		}
-		else if(tabNumber==3) {
+		else if(tabNumber==3 && anyProduct!=null) {
 			int percentage=saleDialogBox();
 			String id=electronicsProduct.getId();
-			StoreDataLoader.store.putOnSaleCloth(id, percentage);
-			StoreDataLoader.writeObject();
+			if(percentage<=100) {
+				StoreDataLoader.store.putOnSaleCloth(id, percentage);
+				StoreDataLoader.writeObject();
+			}
+			else {
+				showDialog("Invalid data entered.\n");
+			}
 			
 		}
+		
 		SceneSwitcher.switchTo(View.Admin,false);
 		
 	}
 	
 	public void backToLoginClicked() {
 		SceneSwitcher.setScene(backToLogin.getScene());
-		SceneSwitcher.switchTo(View.Front);
+		SceneSwitcher.switchTo(View.Front,false);
 	}
 	
 	

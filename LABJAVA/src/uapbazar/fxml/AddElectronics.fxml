@@ -140,6 +140,11 @@
                   </DropShadow>
                </effect>
             </TextField>
+            <Button fx:id="generate" layoutX="107.0" layoutY="83.0" mnemonicParsing="false" onAction="#generateClicked" prefHeight="19.0" prefWidth="20.0" text="G">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Button>
          </children>
          <effect>
             <DropShadow height="37.31" radius="19.2675" spread="0.57" width="41.76">

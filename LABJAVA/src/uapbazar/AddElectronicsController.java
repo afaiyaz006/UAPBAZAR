@@ -15,13 +15,18 @@ public class AddElectronicsController {
 	public TextField price;
 	public TextField manufacturer;
 	public TextField brand;
+	public Button generate;
 	public ChoiceBox<ElectCategory> subCategory;
+	public void generateClicked() {
+			productId.setText(String.valueOf(RandomNumberGenerator.randNum()));
+	}
 	
 	
 	public void cancelClicked() {
-		SceneSwitcher.switchTo(View.ChooseItem);
+		SceneSwitcher.switchTo(View.ChooseItem,false);
 	}
 	public void addClicked() {
+	
 		ElectCategory eCat=subCategory.getValue();
 		String itemName=productName.getText();
 		String pid=productId.getText();
@@ -37,12 +42,13 @@ public class AddElectronicsController {
 		SceneSwitcher.setScene(s.getOwner().getScene());
 		SceneSwitcher.switchTo(View.Admin,false);
 		SceneSwitcher.setScene(add.getScene());
-		SceneSwitcher.switchTo(View.ChooseItem);
+		SceneSwitcher.switchTo(View.ChooseItem,false);
 		
 	}
 	@FXML
 	public void initialize() {
 		subCategory.getItems().addAll(ElectCategory.values());
+		subCategory.setValue(ElectCategory.ELECTRONIC_DEVICE);
 	}
 	
 }

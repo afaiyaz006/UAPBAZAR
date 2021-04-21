@@ -16,14 +16,14 @@ public class ChooseItemTypeController {
 	public void nextClicked() {
 		if(comboBox.getValue().equals(Category.Food)) {
 			
-			SceneSwitcher.switchTo(View.Food);
+			SceneSwitcher.switchTo(View.Food,false);
 		
 		}
 		else if(comboBox.getValue().equals(Category.Electronics)) {
-			SceneSwitcher.switchTo(View.Electronics);
+			SceneSwitcher.switchTo(View.Electronics,false);
 		}
 		else if(comboBox.getValue().equals(Category.Cloth)) {
-			SceneSwitcher.switchTo(View.Cloth);
+			SceneSwitcher.switchTo(View.Cloth,false);
 		}
 		
 	}

@@ -15,7 +15,7 @@ public class App extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		
 		Stage window=primaryStage;
-		setUserAgentStylesheet(STYLESHEET_MODENA);
+	
 
 		Parent root=FXMLLoader.load(getClass().getResource(View.Front.getFileName()));
 	

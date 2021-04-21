@@ -32,6 +32,7 @@ public class Cart implements Serializable {
 		int item_index=findProduct(id);
 		if(item_index>=0) {
 			Product item=items.get(item_index);
+			System.out.println(item.getQuantity()+" "+count);
 			item.setQuantity(item.getQuantity()+count);
 		}
 	
