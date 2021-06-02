@@ -1,9 +1,8 @@
 package uapbazar;
 
-import java.util.ArrayList;
-
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Orientation;
@@ -16,8 +15,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TabPane;
-import uapbazar.product.OutOfStockException;
-import uapbazar.product.Product;
+import uapbazar.Store.Product;
 
 public class UserPanelController {
 	
@@ -27,13 +25,13 @@ public class UserPanelController {
 	public ObservableList<Product> itemList=FXCollections.observableList(StoreDataLoader.store.viewProducts(false));
 	@FXML
 	public ListView<Product> foodList;
-	public ObservableList<Product> fooList=FXCollections.observableList(StoreDataLoader.store.viewProducts(uapbazar.product.Category.Food));
+	public ObservableList<Product> fooList=FXCollections.observableList(StoreDataLoader.store.viewProducts(uapbazar.Store.Category.Food));
 	@FXML
 	public ListView<Product> electronicsList;
-	public ObservableList<Product>	elList=FXCollections.observableList(StoreDataLoader.store.viewProducts(uapbazar.product.Category.Electronics));
+	public ObservableList<Product>	elList=FXCollections.observableList(StoreDataLoader.store.viewProducts(uapbazar.Store.Category.Electronics));
 	@FXML
 	public ListView<Product> clothList;
-	public ObservableList<Product> cloList=FXCollections.observableList(StoreDataLoader.store.viewProducts(uapbazar.product.Category.Cloth));
+	public ObservableList<Product> cloList=FXCollections.observableList(StoreDataLoader.store.viewProducts(uapbazar.Store.Category.Cloth));
 	@FXML
 	public ListView<Product> cartList;
 	public ObservableList<Product> caList=FXCollections.observableList(StoreDataLoader.store.showCart());
@@ -49,11 +47,12 @@ public class UserPanelController {
 	public Spinner<Integer> spinner1;
 	final SpinnerValueFactory<Integer> valueFactory = //
             new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 1);
+
 	public void refreshLists() {
 		
-		fooList.setAll(FXCollections.observableList(StoreDataLoader.store.viewProducts(uapbazar.product.Category.Food)));
-		elList.setAll(FXCollections.observableList(StoreDataLoader.store.viewProducts(uapbazar.product.Category.Electronics)));
-		cloList.setAll(FXCollections.observableList(StoreDataLoader.store.viewProducts(uapbazar.product.Category.Cloth)));
+		fooList.setAll(FXCollections.observableList(StoreDataLoader.store.viewProducts(uapbazar.Store.Category.Food)));
+		elList.setAll(FXCollections.observableList(StoreDataLoader.store.viewProducts(uapbazar.Store.Category.Electronics)));
+		cloList.setAll(FXCollections.observableList(StoreDataLoader.store.viewProducts(uapbazar.Store.Category.Cloth)));
 		itemList.setAll(FXCollections.observableList(StoreDataLoader.store.viewProducts(false)));
 		caList.setAll(FXCollections.observableList(StoreDataLoader.store.showCart()));
 		
@@ -74,7 +73,7 @@ public class UserPanelController {
 					
 					refreshLists();
 					bill+=price;
-					totalBill.setText(bill+"tk");
+					totalBill.setText(String.format("%.2f tk",bill));
 					outOfStock=false;
 				}
 				found=true;
@@ -93,7 +92,7 @@ public class UserPanelController {
 				StoreDataLoader.store.addProductToCart(productInStore.getId(), spinner.getValue());
 				Double price=(Double) productInStore.salePrice(spinner.getValue());
 				bill+=price;
-				totalBill.setText(bill+"tk");
+				totalBill.setText(String.format("%.2f tk",bill));
 				
 			}catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -119,6 +118,12 @@ public class UserPanelController {
 				//SceneSwitcher.switchTo(View.User,false);
 				//caList.setAll(FXCollections.observableList(StoreDataLoader.store.showCart()));
 			}
+			else{
+				Platform.runLater(() -> {
+					Alert dialog = new Alert(AlertType.WARNING, "No item was selected from the store!", ButtonType.OK);
+					dialog.show();
+				});
+			}
 		}
 		else if(tabNumber==1) {
 			
@@ -128,6 +133,12 @@ public class UserPanelController {
 				StoreDataLoader.writeObject();
 				refreshLists();
 				///SceneSwitcher.switchTo(View.User,false);
+			}
+			else{
+				Platform.runLater(() -> {
+					Alert dialog = new Alert(AlertType.WARNING, "No item was selected from the store!", ButtonType.OK);
+					dialog.show();
+				});
 			}
 			
 				
@@ -142,6 +153,12 @@ public class UserPanelController {
 				///SceneSwitcher.switchTo(View.User,false);
 		
 			}
+			else{
+				Platform.runLater(() -> {
+					Alert dialog = new Alert(AlertType.WARNING, "No item was selected from the store!", ButtonType.OK);
+					dialog.show();
+				});
+			}
 		}
 		else if(tabNumber==3) {
 			Product electronicInStore=electronicsList.getSelectionModel().getSelectedItem();
@@ -152,6 +169,12 @@ public class UserPanelController {
 				///SceneSwitcher.switchTo(View.User,false);
 		
 			}
+			else{
+				Platform.runLater(() -> {
+					Alert dialog = new Alert(AlertType.WARNING, "No item was selected from the store!", ButtonType.OK);
+					dialog.show();
+				});
+			}
 			
 		}
 	
@@ -160,15 +183,28 @@ public class UserPanelController {
 	public void removeItemClicked() {
 			
 			Product p=cartList.getSelectionModel().getSelectedItem();
+			if(p==null && caList.size()>0){
+				Platform.runLater(() -> {
+					Alert dialog = new Alert(AlertType.WARNING, "No item was selected from the cart!", ButtonType.OK);
+					dialog.show();
+				});
+			}
+			if(caList.size()==0){
+				Platform.runLater(() -> {
+					Alert dialog = new Alert(AlertType.WARNING, "Cart is empty!", ButtonType.OK);
+					dialog.show();
+				});
+			}
 			if(spinner1.getValue()==p.getQuantity()) {
 				StoreDataLoader.store.removeProductFromCart(p.getId());
 				
 //			spinner1.setValueFactory(valueFactory);
 				caList.remove(p);
 				bill-=p.salePrice(p.getQuantity());
-				totalBill.setText(bill+"tk");
-				refreshLists();
+				totalBill.setText(String.format("%.2f tk",bill));
 				spinner1.getValueFactory().setValue(null);
+				refreshLists();
+
 			}
 			else {
 				StoreDataLoader.store.updateProductInCart(p.getId(),-spinner1.getValue());
@@ -181,21 +217,33 @@ public class UserPanelController {
 				p.updateQuantity(-spinner1.getValue());
 				
 				bill-=p.salePrice(spinner1.getValue());
-				totalBill.setText(bill+"tk");
+				totalBill.setText(String.format("%.2f tk",(double)bill));
 				refreshLists();
 				spinner1.getValueFactory().setValue(null);
+			}
+			if(caList.size()==0){
+				totalBill.setText(String.format("%.2f tk",0.0));
 			}
 			System.out.print(p.getQuantity());
 			
 	}
 	
 	public void clearCartClicked() {
-			StoreDataLoader.store.clearCart();
-			StoreDataLoader.writeObject();
-			refreshLists();
-			bill=0.0;
-			totalBill.setText(bill+"tk");
-			spinner1.getValueFactory().setValue(null);
+			if(caList.size()>0) {
+				StoreDataLoader.store.clearCart();
+				StoreDataLoader.writeObject();
+				refreshLists();
+				bill = 0.0;
+				totalBill.setText("0.0 tk");
+				spinner1.getValueFactory().setValue(null);
+			}
+			else{
+				Platform.runLater(() -> {
+						Alert dialog = new Alert(AlertType.WARNING, "Cart is empty!", ButtonType.OK);
+						dialog.show();
+				});
+
+			}
 			//SceneSwitcher.switchTo(View.User,false);
 	}
 	
@@ -208,11 +256,11 @@ public class UserPanelController {
 			}
 			else {
 				double paidBill=StoreDataLoader.store.payBill();
-				
+				StoreDataLoader.writeObject();
 				refreshLists();
 				
 				Platform.runLater(() -> {
-					Alert dialog = new Alert(AlertType.INFORMATION, "Bill paid "+paidBill+" tk", ButtonType.OK);
+					Alert dialog = new Alert(AlertType.INFORMATION, "Bill paid "+String.format("%.2f tk",paidBill), ButtonType.OK);
 					dialog.show();
 				});
 				bill=0.0;
@@ -228,47 +276,50 @@ public class UserPanelController {
 		clothList.setItems(cloList);
 		cartList.setItems(caList);
 		//spinner.setValueFactory(valueFactory);
-		totalBill.setText(String.valueOf(bill)+"tk");
+		totalBill.setText(String.format("%.2f tk", Double.parseDouble(String.valueOf(bill))));
 		foodList.setOrientation(Orientation.HORIZONTAL);
 		electronicsList.setOrientation(Orientation.HORIZONTAL);
 		clothList.setOrientation(Orientation.HORIZONTAL);
 		all.setOrientation(Orientation.HORIZONTAL);
 		///spinner defaults for cart
-		cartList.setOnMouseClicked(e->{
-			
-			int quantity=cartList.getSelectionModel().getSelectedItem().getQuantity();
+		cartList.setOnMouseClicked(e -> {
+
+			int quantity = cartList.getSelectionModel().getSelectedItem().getQuantity();
 			SpinnerValueFactory<Integer> valueFactory = //
-		            new SpinnerValueFactory.IntegerSpinnerValueFactory(1,quantity, 1);
+					new SpinnerValueFactory.IntegerSpinnerValueFactory(1, quantity, 1);
 			spinner1.setValueFactory(valueFactory);
 		});
 		////spinner defaults for store
-		all.setOnMouseClicked(e->{
-			int max_quantity=all.getSelectionModel().getSelectedItem().getQuantity();
+		all.setOnMouseClicked(e -> {
+			int max_quantity = all.getSelectionModel().getSelectedItem().getQuantity();
 			SpinnerValueFactory<Integer> valueFactory = //
-		            new SpinnerValueFactory.IntegerSpinnerValueFactory(1,max_quantity, 1);
+					new SpinnerValueFactory.IntegerSpinnerValueFactory(1, max_quantity, 1);
 			spinner.setValueFactory(valueFactory);
 		});
 
-		foodList.setOnMouseClicked(e->{
-			int max_quantity=foodList.getSelectionModel().getSelectedItem().getQuantity();
+		foodList.setOnMouseClicked(e -> {
+			int max_quantity = foodList.getSelectionModel().getSelectedItem().getQuantity();
 			SpinnerValueFactory<Integer> valueFactory = //
-		            new SpinnerValueFactory.IntegerSpinnerValueFactory(1,max_quantity, 1);
+					new SpinnerValueFactory.IntegerSpinnerValueFactory(1, max_quantity, 1);
 			spinner.setValueFactory(valueFactory);
 		});
 
-		clothList.setOnMouseClicked(e->{
-			int max_quantity=clothList.getSelectionModel().getSelectedItem().getQuantity();
+		clothList.setOnMouseClicked(e -> {
+			int max_quantity = clothList.getSelectionModel().getSelectedItem().getQuantity();
 			SpinnerValueFactory<Integer> valueFactory = //
-		            new SpinnerValueFactory.IntegerSpinnerValueFactory(1,max_quantity, 1);
+					new SpinnerValueFactory.IntegerSpinnerValueFactory(1, max_quantity, 1);
 			spinner.setValueFactory(valueFactory);
 		});
-		electronicsList.setOnMouseClicked(e->{
-			int max_quantity=electronicsList.getSelectionModel().getSelectedItem().getQuantity();
+		electronicsList.setOnMouseClicked(e -> {
+			int max_quantity = electronicsList.getSelectionModel().getSelectedItem().getQuantity();
 			SpinnerValueFactory<Integer> valueFactory = //
-		            new SpinnerValueFactory.IntegerSpinnerValueFactory(1,max_quantity, 1);
+					new SpinnerValueFactory.IntegerSpinnerValueFactory(1, max_quantity, 1);
 			spinner.setValueFactory(valueFactory);
 		});
+
+
+
 	}
-	
+
 	
 }

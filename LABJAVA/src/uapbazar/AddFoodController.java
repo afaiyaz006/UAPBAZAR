@@ -10,7 +10,7 @@ import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+///Done by al amin anik
 public class AddFoodController {
 	public Button cancel;
 	public Button add;
@@ -57,10 +57,11 @@ public class AddFoodController {
 			int amount=Integer.parseInt((String)quantity.getText());
 			LocalDate dp=datePicker.getValue();
 		
-			boolean foodNameCheck=foodName.matches("[a-zA-Z]+");
+			boolean foodNameCheck=foodName.matches("[a-zA-Z ]+");
 			boolean pidCheck = pid.matches("[0-9]+");
-		
-			if(foodNameCheck && pidCheck) {
+			boolean amountCheck=pid.matches("[0-9]+");
+
+			if(foodNameCheck && pidCheck && amountCheck && dp!=null) {
 				StoreDataLoader.store.addProduct(foodName, pid, amount, LocalDate.now(), dp,p);
 				StoreDataLoader.writeObject();
 				//AdminPanelController.itemList.notifyAll();
@@ -73,13 +74,13 @@ public class AddFoodController {
 				
 			}
 			else {
-				showDialog("Invalid Data Entered");
+				showDialog("One or more data in the fields are invalid!");
 			}
 			
 			
 		   
 		}catch(Exception e) {
-			showDialog("Invalid Input");
+			showDialog("One or more  fields are empty or invalid!");
 		}
 		
 		

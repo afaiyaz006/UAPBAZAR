@@ -1,4 +1,4 @@
-package uapbazar.product;
+package uapbazar.Store;
 
 import java.io.Serializable;
 
@@ -86,16 +86,17 @@ public abstract class Product implements Cloneable,Serializable{
 	public String toString() {
 		if (!onSale)
 			//return  String.format("%s(%s)-%.1f tk-----Amount: %d", name,id,price,quantity);
-			return "Name: "+name+" "+"\nID: "+id+"\nPrice: "+price+"\nQuantity "+quantity+"\n";
+			return  String.format("Name: %s\nID: %s\nPrice: %.1ftk\nAmount: %d",name,id,price,quantity);
+
 		else
 			//return  String.format("%s(%s)-On Sale-%.2f tk(Original Price:%.1f)----Amount: %d", name,id,salePrice(1), price,quantity);
-			return "Name: "+name+"\nID: "+id+"\nOn sale: "+salePrice(1)+"\nOrginal Price: "+price+"\nQuantity: "+quantity+"\n";
+			return  String.format("Name: %s\nID:%s\nOn Sale: %.2ftk\nOriginal Price: %.1ftk\nAmount: %d",name,id,salePrice(1),price,quantity);
 	}
 	
 	// This is for showing the details
 	public String details() {
 		return "Name=" + name + "\tId= " + id + "\tCategory= " + category + "\tQuantity= " + quantity + "\tprice= "
-				+ price + " \tOnSale=" + onSale + "\tSalePercent=" + salePercent;
+				+ price+"tk" + " \tOnSale= " + onSale + "\tSalePercent =" + salePercent;
 	}
 	
 	public Object clone()throws CloneNotSupportedException{  

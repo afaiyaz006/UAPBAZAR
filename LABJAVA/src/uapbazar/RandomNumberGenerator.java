@@ -1,7 +1,7 @@
 package uapbazar;
 
 import java.util.Random;
-
+///Done by Abu Bakr
 public class RandomNumberGenerator {
 	public static  int randNum() {
 

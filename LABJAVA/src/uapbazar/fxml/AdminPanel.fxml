@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.effect.Glow?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="764.0" prefWidth="1024.0" style="-fx-background-color: #6a5ea2; -fx-max-height: 600; -fx-max-width: 1000; -fx-min-height: 600; -fx-min-width: 1000;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uapbazar.AdminPanelController">
+<GridPane prefHeight="700.0" prefWidth="1024.0" style="-fx-background-color: #6a5ea2; -fx-max-height: 600; -fx-max-width: 1000; -fx-min-height: 600; -fx-min-width: 1000;" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uapbazar.AdminPanelController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="1000.0" minWidth="10.0" prefWidth="1000.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="0.0" prefWidth="0.0" />
@@ -32,7 +25,10 @@
          </effect>
          <font>
             <Font name="System Bold" size="12.0" />
-         </font></Button>
+         </font>
+         <GridPane.margin>
+            <Insets left="20.0" />
+         </GridPane.margin></Button>
       <Button fx:id="addNewItem" mnemonicParsing="false" onAction="#addNewItemClicked" prefHeight="53.0" prefWidth="164.0" style="-fx-background-color: df3838;" text="Add new Item" textFill="WHITE" textOverrun="LEADING_ELLIPSIS" wrapText="true" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="800.0" top="50.0" />
@@ -47,23 +43,23 @@
                </color></DropShadow>
          </effect>
       </Button>
-      <TabPane fx:id="tabPane" prefHeight="600.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" GridPane.rowIndex="2">
+      <TabPane fx:id="tabPane" prefHeight="700.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" GridPane.rowIndex="2">
         <tabs>
           <Tab style="-fx-background-color: #59d37c; -fx-background-radius: 3;" text="Browse All">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="1000.0">
+              <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="1253.0">
                      <effect>
                         <DropShadow />
                      </effect>
                      <children>
-                        <ListView fx:id="listView" layoutX="2.0" layoutY="1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" />
+                        <ListView fx:id="listView" layoutY="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="291.0" prefWidth="1000.0" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
           <Tab style="-fx-background-color: #59d37c; -fx-background-radius: 3;" text="FoodItem">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="229.0" prefWidth="10000.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="229.0" prefWidth="1253.0">
                      <children>
                         <ListView fx:id="foodList" layoutY="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="291.0" prefWidth="1000.0" />
                      </children>
@@ -72,7 +68,7 @@
           </Tab>
             <Tab style="-fx-background-color: #59d37c; -fx-background-radius: 3;" text="Electronics">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="229.0" prefWidth="1000.0">
+                  <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="229.0" prefWidth="1253.0">
                      <children>
                         <ListView fx:id="electronicsList" layoutY="-1.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="291.0" prefWidth="1000.0" />
                      </children>

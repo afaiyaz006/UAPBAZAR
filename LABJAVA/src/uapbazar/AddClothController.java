@@ -9,7 +9,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import uapbazar.product.*;
+import uapbazar.Store.*;
+///Done by arijit bakshi
 
 public class AddClothController {
 	public Button cancel;
@@ -97,9 +98,8 @@ public class AddClothController {
 				else {
 					Double price = Double.parseDouble(ItemPrice);
 					Integer quantity=Integer.parseInt(itemQuantity);
-					//StoreDataLoader.store.addProduct(, itemIDError, 0, itemBrandError, csc, cs, price);
 					StoreDataLoader.store.addProduct(itemName, itemId, quantity, itemBrand, csc, cs, price);
-					
+
 					StoreDataLoader.writeObject();
 					//AdminPanelController.itemList.notifyAll();
 					Stage s=(Stage)add.getScene().getWindow();

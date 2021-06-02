@@ -1,4 +1,4 @@
-package uapbazar.product;
+package uapbazar.Store;
 
 import java.io.Serializable;
 import java.util.ArrayList;

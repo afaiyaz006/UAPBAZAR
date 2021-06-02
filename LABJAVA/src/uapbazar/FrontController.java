@@ -7,7 +7,7 @@ public class FrontController {
 	public Button customer;
 	
 	public void adminClicked() {
-		SceneSwitcher.switchTo(View.Admin,false);///switching to adminpanel scene with caching enabled
+		SceneSwitcher.switchTo(View.Admin,false);///switching to adminpanel scene without caching
 	}
 	public void customerClicked() {
 		StoreDataLoader.store.clearCart();

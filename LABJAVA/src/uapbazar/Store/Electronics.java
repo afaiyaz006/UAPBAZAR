@@ -1,4 +1,4 @@
-package uapbazar.product;
+package uapbazar.Store;
 
 public class Electronics extends Product { 
 // make this a subclass of Product

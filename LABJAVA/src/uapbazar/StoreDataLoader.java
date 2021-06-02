@@ -1,13 +1,18 @@
 package uapbazar;
-import uapbazar.product.*;
+
+import uapbazar.Store.*;
+
+
 import java.io.*;
-import java.util.Locale.Category;
+
 public class StoreDataLoader {
 	public static Store store=new Store("UAP BAZAR");
-	public static String path="src\\uapbazar\\Store.txt";
+	public static String path= "Store.txt";
+
     public static void writeObject(){
-    	//loadSample();
+
         try{
+
             FileOutputStream fileOut = new FileOutputStream(new File(path));
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
             objectOut.writeObject(store);
@@ -22,6 +27,7 @@ public class StoreDataLoader {
 
     public static void  readObject(){
         try{
+
             FileInputStream fileIn = new FileInputStream(new File(path));
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
             store=(Store)objectIn.readObject();
@@ -33,10 +39,6 @@ public class StoreDataLoader {
             
         }
     }
-    public static void loadSample() {
-    	store.addProduct("ABCD","ABCD", 0, "ABCD", null, null, 0);
-    	store.addProduct("ABCD","ABCD", 0, "ABCD", null, null, 0);
-    	store.addProduct("ABCD","ABCD", 0, "ABCD", null, null, 0);
-    }
+
 	
 }

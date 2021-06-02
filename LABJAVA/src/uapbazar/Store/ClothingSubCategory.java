@@ -1,4 +1,4 @@
-package uapbazar.product;
+package uapbazar.Store;
 
 public enum ClothingSubCategory{
 	MEN,

@@ -1,4 +1,4 @@
-package uapbazar.product;
+package uapbazar.Store;
 
 public class ExpirationException extends Exception{
 	public ExpirationException(String message) {
